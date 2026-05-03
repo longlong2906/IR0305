@@ -14,7 +14,7 @@ class MedRAGPipeline:
                  meta_path='wikipedia_meta.json',
                  embed_model_name='all-MiniLM-L6-v2',
                  cross_encoder_name='cross-encoder/ms-marco-MiniLM-L-6-v2',
-                 gemini_model='gemini-3-flash'):
+                 gemini_model='gemini-3-flash-preview'):
         
         self.index_path = index_path
         self.meta_path = meta_path

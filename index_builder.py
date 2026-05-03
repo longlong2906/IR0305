@@ -5,7 +5,7 @@ import faiss
 from datasets import load_dataset
 from sentence_transformers import SentenceTransformer
 
-def build_index(num_samples=10000, model_name='all-MiniLM-L6-v2', index_path='wikipedia.index', meta_path='wikipedia_meta.json'):
+def build_index(num_samples=50000, model_name='all-MiniLM-L6-v2', index_path='wikipedia_50k.index', meta_path='wikipedia_meta_50k.json', npy_path='embeddings_50k.npy'):
     print(f"Loading top {num_samples} from MedRAG/wikipedia...")
     # Dùng streaming=True để tránh tải toàn bộ 29 triệu dòng về RAM
     dataset = load_dataset("MedRAG/wikipedia", split="train", streaming=True)
@@ -35,6 +35,9 @@ def build_index(num_samples=10000, model_name='all-MiniLM-L6-v2', index_path='wi
     
     print(f"Saving index to {index_path}...")
     faiss.write_index(index, index_path)
+    
+    print(f"Saving numpy embeddings to {npy_path}...")
+    np.save(npy_path, embeddings)
     
     print(f"Saving metadata to {meta_path}...")
     with open(meta_path, 'w', encoding='utf-8') as f:
